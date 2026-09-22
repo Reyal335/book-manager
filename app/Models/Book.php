@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Books extends Model
+class Book extends Model
 {
     protected $fillable = ['title', 'author_id', 'publish_date'];
     /** @use HasFactory<\Database\Factories\BooksFactory> */

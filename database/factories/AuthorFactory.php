@@ -18,7 +18,8 @@ class AuthorFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'birth_date' => fake()->dateTimeBetween('-65 years', '-18 years')->format('Y-m-d'),
         ];
     }
 }
