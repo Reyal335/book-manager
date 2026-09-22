@@ -14,9 +14,10 @@ Route::prefix('author')->group(function() {
     
     Route::get('/', [AuthorController::class, 'index']);
     
+    Route::get('/create', [AuthorController::class, 'create']);
+
     Route::get('/{id}', [AuthorController::class, 'show']);
     
-    Route::get('/create', [AuthorController::class, 'create']);
     
     Route::post('/{id}', [AuthorController::class, 'store']);
 
@@ -26,10 +27,10 @@ Route::prefix('author')->group(function() {
 Route::prefix('book')->group(function() {
     
     Route::get('/', [BookController::class, 'index']);
-    
-    Route::get('/{id}', [BookController::class, 'show']);
-    
+
     Route::get('/create', [BookController::class, 'create']);
+
+    Route::get('/{id}', [BookController::class, 'show']);
     
     Route::post('/{id}', [BookController::class, 'store']);
 

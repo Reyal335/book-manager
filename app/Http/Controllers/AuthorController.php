@@ -25,7 +25,7 @@ class AuthorController extends Controller
 
     // render a create view
     public function create() {
-
+        return view('authors.create');
     }
 
     // handle a post request

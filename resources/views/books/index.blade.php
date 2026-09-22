@@ -7,26 +7,74 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-    <header>
-        <h1>Books</h1>
+<body class="min-h-screen bg-gray-100 text-gray-900">
+    <header class="border-b bg-white">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-6">
+            <h1 class="text-3xl font-bold">Books</h1>
+            <a href="{{ url('/book/create') }}" class="rounded bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+                Add book
+            </a>
+        </div>
     </header>
 
-    <main>
-        <section>
-            <h2 id="books-heading">All Books</h2>
+    <main class="mx-auto max-w-7xl px-4 py-8">
+        <section aria-labelledby="books-heading">
+            <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                <h2 id="books-heading" class="text-2xl font-semibold">All Books</h2>
+
+                <form method="GET" action="{{ url('/book') }}" class="flex gap-2">
+                    <label for="book-search" class="sr-only">Search books</label>
+                    <input
+                        type="search"
+                        id="book-search"
+                        name="search"
+                        value=""
+                        placeholder="Search books"
+                        class="rounded border px-3 py-2 text-sm"
+                    >
+                    <button type="submit" class="rounded bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700">
+                        Search
+                    </button>
+                </form>
+            </div>
 
             @if ($books->isEmpty())
-                <p>No books found.</p>
+                <p class="rounded border bg-white p-6 text-gray-600">No books found.</p>
             @else
-                <ul>
+                <ul class="grid gap-4">
                     @foreach ($books as $book)
                         <li>
-                            <article>
-                                <a href="{{ url('/book/' . $book['id']) }}">
-                                    <h3>{{ $book['title'] }}</h3>
-                                    <p>Author: {{ $book['author'] }}</p>
-                                </a>
+                            <article class="rounded-lg border bg-white p-5 shadow-sm">
+                                <header>
+                                    <h3 class="text-xl font-semibold">{{ $book->title }}</h3>
+                                </header>
+
+                                <dl class="mt-4 space-y-2 text-sm text-gray-600">
+                                    <div>
+                                        <dt class="inline font-medium text-gray-900">Author:</dt>
+                                        <dd class="inline">{{ $book->author?->name ?? 'Unknown author' }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="inline font-medium text-gray-900">Published:</dt>
+                                        <dd class="inline">
+                                            <time datetime="{{ $book->publish_date }}">
+                                                {{ $book->publish_date }}
+                                            </time>
+                                        </dd>
+                                    </div>
+                                </dl>
+                                <div>
+                                    <a href="{{ url('/book/' . $book->id) }}" class="mt-4 inline-block text-sm font-medium text-blue-600 hover:underline">
+                                        View book
+                                    </a>                                    
+                                    <a href="{{ url('/book/' . $book->id) }}" class="mt-4 inline-block text-sm font-medium text-blue-600 hover:underline">
+                                        Update
+                                    </a>                                    
+                                    <a href="{{ url('/book/' . $book->id) }}" class="mt-4 inline-block text-sm font-medium text-blue-600 hover:underline">
+                                        Delete
+                                    </a>                                    
+                                </div>
+
                             </article>
                         </li>
                     @endforeach
