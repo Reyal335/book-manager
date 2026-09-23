@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Add Book</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -29,7 +30,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('books.store') }}" class="space-y-6 rounded-lg border bg-white p-6 shadow-sm">
+        <form id="book-form" method="POST" action="{{ route('books.store') }}" class="space-y-6 rounded-lg border bg-white p-6 shadow-sm">
             @csrf
 
             <div>
@@ -82,7 +83,36 @@
                     Cancel
                 </a>
             </div>
+            <p id="book-message" class="text-sm" role="status"></p>
         </form>
     </main>
+    <script>
+        document.getElementById('book-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const form = event.currentTarget;
+            const message = document.getElementById('book-message');
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: new FormData(form)
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                message.textContent = data.message || 'The book could not be created.';
+                message.className = 'text-sm text-red-600';
+                return;
+            }
+
+            message.textContent = data.message;
+            message.className = 'text-sm text-green-600';
+            form.reset();
+        });
+    </script>
 </body>
 </html>

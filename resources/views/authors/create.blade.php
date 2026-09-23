@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Add Author</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -29,7 +30,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('authors.store') }}" class="space-y-6 rounded-lg border bg-white p-6 shadow-sm">
+        <form id="author-form" class="space-y-6 rounded-lg border bg-white p-6 shadow-sm">
             @csrf
 
             <div>
@@ -65,7 +66,39 @@
                     Cancel
                 </a>
             </div>
+
+            <p id="author-message"></p>
         </form>
     </main>
+    <script>
+        document.getElementById('author-form')
+            .addEventListener('submit', async function (event) {
+                event.preventDefault();
+
+                const form = event.currentTarget;
+                const response = await fetch('{{ route('authors.store') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document
+                            .querySelector('meta[name="csrf-token"]')
+                            .content
+                    },
+                    body: new FormData(form)
+                });
+
+                const data = await response.json()
+
+                if (!response.ok) {
+                    document.getElementById('author-message').textContent =
+                        data.message || 'The author could not be created.';
+
+                    return;
+                }
+
+                document.getElementById('author-message').textContent = data.message;
+                form.reset();
+            })
+    </script>
 </body>
 </html>

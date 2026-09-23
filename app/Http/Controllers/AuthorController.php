@@ -38,12 +38,17 @@ class AuthorController extends Controller
     // handle a post request
     public function store(Request $request) {
 
-        $author = new Author;
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'birth_date' => ['required', 'date'],
+        ]);
 
-        $author->name = $request->name;
-        $author->birth_date = $request->birth_date;
+        $author = Author::create($validated);
 
-        $author->save();
+        return response()->json([
+            'message' => 'Author created successfully.',
+            'author' => $author,
+        ], 201);
 
     }
 
@@ -55,7 +60,12 @@ class AuthorController extends Controller
 
     }
 
-    public function destroy() {
+    public function destroy(Author $author)
+    {
+        $author->delete();
 
+        return response()->json([
+            'message' => 'Author deleted successfully.',
+        ]);
     }
 }

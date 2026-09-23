@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Books</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -24,7 +25,13 @@
 
     <main class="mx-auto max-w-7xl px-4 py-8">
         <section aria-labelledby="books-heading">
-            <div class="text-3xl font-bold">Books</div>
+            <div class="mb-8 flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium uppercase tracking-wide text-blue-600">Book Manager</p>
+                    <h1 class="mt-1 text-3xl font-bold">Books</h1>
+                </div>
+                <p class="hidden text-sm text-gray-500 sm:block">Browse your book library</p>
+            </div>
             <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <h2 id="books-heading" class="text-2xl font-semibold">All Books</h2>
 
@@ -34,7 +41,7 @@
                         type="search"
                         id="book-search"
                         name="search"
-                        value=""
+                        value="{{ request('search') }}"
                         placeholder="Search books"
                         class="rounded border px-3 py-2 text-sm"
                     >
@@ -74,6 +81,18 @@
                                         View book
                                     </a>                                    
                                 </div>
+                                <div class="mt-4 flex gap-2">
+                                    <button type="button" class="rounded bg-gray-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-600">
+                                        Update
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="delete-book rounded bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600"
+                                        data-url="{{ route('books.destroy', $book) }}"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
 
                             </article>
                         </li>
@@ -82,5 +101,32 @@
             @endif
         </section>
     </main>
+    <script>
+        document.addEventListener('click', async function (event) {
+            if (!event.target.matches('.delete-book')) {
+                return;
+            }
+
+            if (!confirm('Delete this book?')) {
+                return;
+            }
+
+            const button = event.target;
+            const response = await fetch(button.dataset.url, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            });
+
+            if (!response.ok) {
+                alert('The book could not be deleted.');
+                return;
+            }
+
+            button.closest('li').remove();
+        });
+    </script>
 </body>
 </html>

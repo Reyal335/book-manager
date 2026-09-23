@@ -45,13 +45,18 @@ class BookController extends Controller
     // handle a post request
     public function store(Request $request) {
 
-        $book = new Book;
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'author_id' => ['required', 'exists:authors,id'],
+            'publish_date' => ['required', 'date'],
+        ]);
 
-        $book->title = $request->title;
-        $book->author_id = $request->author_id;
-        $book->publish_date = $request->publish_date;
+        $book = Book::create($validated);
 
-        $book->save();
+        return response()->json([
+            'message' => 'Book created successfully.',
+            'book' => $book,
+        ], 201);
 
     }
     public function edit() {
@@ -62,7 +67,13 @@ class BookController extends Controller
 
     }
 
-    public function destroy() {
+    public function destroy(Book $book) {
+
+        $book->delete();
+
+        return response()->json([
+            'message' => 'Book deleted successfully.',
+        ]);
 
     }
 }
