@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('books.index');
 });
 
 Route::resource('authors', AuthorController::class)

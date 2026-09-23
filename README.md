@@ -25,19 +25,19 @@ This is a book manager crud app developed as per instructions for the Technical 
 
 **If not yet configured**
 
-    1. Find the active php.ini
+Find the active php.ini
 
-    ```
-    php --ini
-    ```
+```
+php --ini
+```
 
-    ```
-    Loaded Configuration File:         "C:\php-8.5.10\php.ini"
-    ```
+```
+Loaded Configuration File:         "C:\php-8.5.10\php.ini"
+```
 
-    Look for and open that file
+Look for and open that file
 
-    2. Enable SQLITE extensions by uncommenting pdo_sqlite and sqlite3
+Enable SQLITE extensions by uncommenting pdo_sqlite and sqlite3
 
 5. Git
 
