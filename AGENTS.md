@@ -14,7 +14,7 @@ composer -V
 
 If either command is unavailable, detect the user's operating system and install the prerequisites with the appropriate command:
 
-macOS:
+MacOS:
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://php.new/install/mac/8.5)"
