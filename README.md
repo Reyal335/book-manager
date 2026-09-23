@@ -114,9 +114,9 @@ Or use the existing composer script:
 composer run dev
 ```
 
-Then opn
+Then open
 ```
-http://127.0.0.1
+http://127.0.0.1:8000
 ```
 
 
