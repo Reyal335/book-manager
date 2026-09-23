@@ -49,10 +49,14 @@ git clone <repository-url>
 cd book-manager
 ```
 
+
+
 **Install php dependencies**
 ```
 composer install
 ```
+
+
 
 **Create the environment file**
 
@@ -69,6 +73,8 @@ Copy-Item .env.example .env
 php artisan key:generate
 ```
 
+
+
 **Create the SQLite database file:**
 ```
 touch database/database.sqlite
@@ -84,11 +90,15 @@ New-Item database/database.sqlite -ItemType File
 php artisan migrate --seed
 ```
 
+
+
 **Install and build frontend assets:**
 ```
 npm install 
 npm run build
 ```
+
+
 
 **Start the application**
 For development with live Vite updates, use two terminals
@@ -106,6 +116,7 @@ Then opn
 ```
 http://127.0.0.1
 ```
+
 
 
 ## Notes
