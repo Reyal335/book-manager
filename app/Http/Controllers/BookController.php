@@ -3,13 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Author;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
     // index view
-    public function index() {
-        $books = Book::with('author')->orderBy('created_at', 'desc')->get();
+    public function index(Request $request) {
+        $searchTerm = $request->input('search');
+
+        $books = Book::leftJoin('authors', 'authors.id', '=', 'books.author_id')
+            ->select('books.*', 'authors.name as author_name')
+            ->when($searchTerm, function($query, $searchTerm) {
+                $query->where(function ($query) use ($searchTerm) {
+                    $query->where('books.title', 'like', "%{$searchTerm}%")
+                        ->orWhere('authors.name', 'like', "%{$searchTerm}%");
+                });
+            })
+            ->orderBy('books.created_at', 'desc')
+            ->get();
+
 
         return view('books.index', ["books" => $books]);
     }
@@ -24,12 +37,32 @@ class BookController extends Controller
 
     // render a create view
     public function create() {
-        return view('books.create');
+        $authors = Author::orderBy('name')->get();
+
+        return view('books.create', ['authors' => $authors]);
     }
 
     // handle a post request
-    public function store() {
+    public function store(Request $request) {
+
+        $book = new Book;
+
+        $book->title = $request->title;
+        $book->author_id = $request->author_id;
+        $book->publish_date = $request->publish_date;
+
+        $book->save();
+
+    }
+    public function edit() {
+        return view('books.edit');
+    }
+
+    public function update() {
 
     }
 
+    public function destroy() {
+
+    }
 }

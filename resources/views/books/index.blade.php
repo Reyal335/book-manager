@@ -11,7 +11,6 @@
     <header class="border-b bg-white">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-6">
             <div class="flex items-center gap-6">
-                <h1 class="text-3xl font-bold">Books</h1>
                 <nav class="flex gap-4 text-sm font-medium" aria-label="Primary navigation">
                     <a href="{{ route('authors.index') }}" class="text-blue-600 hover:underline">Authors</a>
                     <a href="{{ route('books.index') }}" class="text-blue-600 hover:underline">Books</a>
@@ -25,6 +24,7 @@
 
     <main class="mx-auto max-w-7xl px-4 py-8">
         <section aria-labelledby="books-heading">
+            <div class="text-3xl font-bold">Books</div>
             <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <h2 id="books-heading" class="text-2xl font-semibold">All Books</h2>
 
@@ -58,7 +58,7 @@
                                 <dl class="mt-4 space-y-2 text-sm text-gray-600">
                                     <div>
                                         <dt class="inline font-medium text-gray-900">Author:</dt>
-                                        <dd class="inline">{{ $book->author?->name ?? 'Unknown author' }}</dd>
+                                        <dd class="inline">{{ $book->author_name ?? 'Unknown author' }}</dd>
                                     </div>
                                     <div>
                                         <dt class="inline font-medium text-gray-900">Published:</dt>
