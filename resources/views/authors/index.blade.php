@@ -10,8 +10,14 @@
 <body class="min-h-screen bg-gray-100 text-gray-900">
     <header class="border-b bg-white">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-6">
-            <h1 class="text-3xl font-bold">Authors</h1>
-            <a href="{{ url('/author/create') }}" class="rounded bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+            <div class="flex items-center gap-6">
+                <h1 class="text-3xl font-bold">Authors</h1>
+                <nav class="flex gap-4 text-sm font-medium" aria-label="Primary navigation">
+                    <a href="{{ route('authors.index') }}" class="text-blue-600 hover:underline">Authors</a>
+                    <a href="{{ route('books.index') }}" class="text-blue-600 hover:underline">Books</a>
+                </nav>
+            </div>
+            <a href="{{ route('authors.create') }}" class="rounded bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
                 Add author
             </a>
         </div>
@@ -22,7 +28,7 @@
             <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <h2 id="authors-heading" class="text-2xl font-semibold">All Authors</h2>
 
-                <form method="GET" action="{{ url('/author') }}" class="flex gap-2">
+                <form method="GET" action="{{ route('authors.index') }}" class="flex gap-2">
                     <label for="author-search" class="sr-only">Search authors</label>
                     <input
                         type="search"
@@ -50,14 +56,8 @@
                                     Birth date: {{ $author['birth_date'] }}
                                 </p>
                                 <div>
-                                    <a href="{{ url('/author/' . $author['id']) }}" class="mt-4 inline-block text-sm font-medium text-blue-600 hover:underline">
+                                    <a href="{{ route('authors.show', $author['id']) }}" class="mt-4 inline-block text-sm font-medium text-blue-600 hover:underline">
                                         View author
-                                    </a>
-                                    <a href="{{ url('/author/' . $author['id']) }}" class="mt-4 inline-block text-sm font-medium text-blue-600 hover:underline">
-                                        Update
-                                    </a>
-                                    <a href="{{ url('/author/' . $author['id']) }}" class="mt-4 inline-block text-sm font-medium text-blue-600 hover:underline">
-                                        Delete
                                     </a>
                                 </div>
 
