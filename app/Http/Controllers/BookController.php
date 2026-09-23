@@ -59,12 +59,25 @@ class BookController extends Controller
         ], 201);
 
     }
-    public function edit() {
-        return view('books.edit');
+    public function edit(Book $book) {
+        $authors = Author::orderBy('name')->get();
+
+        return view('books.edit', ['book' => $book, 'authors' => $authors]);
     }
 
-    public function update() {
+    public function update(Request $request, Book $book) {
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'author_id' => ['required', 'exists:authors,id'],
+            'publish_date' => ['required', 'date'],
+        ]);
 
+        $book->update($validated);
+
+        return response()->json([
+            'message' => 'Book updated successfully.',
+            'book' => $book,
+        ]);
     }
 
     public function destroy(Book $book) {

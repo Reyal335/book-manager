@@ -52,13 +52,25 @@ class AuthorController extends Controller
 
     }
 
-    public function edit() {
-        return view('authors.edit');
+    public function edit(Author $author) {
+        return view('authors.edit', ['author' => $author]);
     }
 
-    public function update(Request $request) {
+    public function update(Request $request, Author $author) {
 
-    }
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'birth_date' => ['required', 'date'],
+        ]);
+        
+        $author->update($validated);
+
+        return response()->json([
+            'message' => 'Author updated successfully.',
+            'author' => $author,
+        ]);
+
+    }   
 
     public function destroy(Author $author)
     {

@@ -82,12 +82,12 @@
                                     </a>                                    
                                 </div>
                                 <div class="mt-4 flex gap-2">
-                                    <button type="button" class="rounded bg-gray-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-600">
+                                    <button type="button" class="rounded cursor-pointer bg-gray-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-600">
                                         Update
                                     </button>
                                     <button
                                         type="button"
-                                        class="delete-book rounded bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600"
+                                        class="delete-book cursor-pointer rounded bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600"
                                         data-url="{{ route('books.destroy', $book) }}"
                                     >
                                         Delete

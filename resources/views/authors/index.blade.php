@@ -68,13 +68,16 @@
                                     </a>
                                 </div>
                                 <div class="flex items-start gap-2">
-                                    <button type="button" class="rounded bg-gray-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-600">
+                                    <button type="button" 
+                                        class="rounded cursor-pointer bg-gray-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-600"
+                                        onclick="window.location.href='{{ route('authors.edit', $author['id']) }}'"
+                                    >
                                         Update
                                     </button>
                                     <button 
                                         id="delete-author" 
                                         type="button" 
-                                        class="rounded bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600"
+                                        class="rounded cursor-pointer bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600"
                                         data-url="{{ route('authors.destroy', $author) }}"
                                     >
                                         Delete
