@@ -57,7 +57,8 @@
                 <ul class="grid gap-4">
                     @foreach ($books as $book)
                         <li>
-                            <article class="rounded-lg border bg-white p-5 shadow-sm">
+                            <article class="flex justify-between rounded-lg border bg-white p-5 shadow-sm">
+                                <div>
                                 <header>
                                     <h3 class="text-xl font-semibold">{{ $book->title }}</h3>
                                 </header>
@@ -81,8 +82,13 @@
                                         View book
                                     </a>                                    
                                 </div>
-                                <div class="mt-4 flex gap-2">
-                                    <button type="button" class="rounded cursor-pointer bg-gray-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-600">
+                            </div>
+                                <div class="flex items-start gap-2">
+                                    <button 
+                                        type="button" 
+                                        class="rounded cursor-pointer bg-gray-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-600"
+                                        onclick="window.location.href='{{ route('books.edit', $book['id']) }}'"    
+                                    >
                                         Update
                                     </button>
                                     <button
