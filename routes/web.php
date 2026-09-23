@@ -9,7 +9,25 @@ Route::get('/', function () {
 });
 
 Route::resource('authors', AuthorController::class)
-    ->only(['index', 'create', 'store', 'show']);
+    ->only([
+            // READ
+            'index', 'show',
+            // CREATE
+            'create', 'store',
+            // UPDATE
+            'edit', 'update',
+            // DELETE
+            'destroy'
+            ]);
 
 Route::resource('books', BookController::class)
-    ->only(['index', 'create', 'store', 'show']);
+    ->only([
+            // READ
+            'index', 'show',
+            // CREATE
+            'create', 'store',
+            // UPDATE
+            'edit', 'update',
+            // DELETE
+            'destroy'
+            ]);
