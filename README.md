@@ -37,7 +37,9 @@ Loaded Configuration File:         "C:\php-8.5.10\php.ini"
 
 Look for and open that file
 
-Enable SQLITE extensions by uncommenting pdo_sqlite and sqlite3
+Enable SQLITE extensions by uncommenting fileinfo, pdo_sqlite and sqlite3 
+
+(essential for composer install)
 
 5. Git
 
