@@ -39,6 +39,13 @@ Look for and open that file
 
 Enable SQLITE extensions by uncommenting fileinfo, pdo_sqlite and sqlite3 
 
+uncomment be removing the leading semicolon
+```
+;extension=fileinfo
+;extension=pdo_sqlite
+;extension=sqlite3
+```
+
 (essential for composer install)
 
 5. Git
@@ -114,9 +121,9 @@ Or use the existing composer script:
 composer run dev
 ```
 
-Then opn
+Then open
 ```
-http://127.0.0.1
+http://127.0.0.1:8000
 ```
 
 
