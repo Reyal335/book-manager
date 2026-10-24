@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return redirect()->route('books.index');
@@ -31,3 +32,6 @@ Route::resource('books', BookController::class)
             // DELETE
             'destroy'
             ]);
+
+Route::resource('users', UserController::class)
+    ->only(['store']);
